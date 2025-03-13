@@ -1,0 +1,84 @@
+{% extends 'level_1/level1base.html' %}
+
+{% block questions %}
+let python_code = `# Debugging Problem: Fix the syntax errors
+# Expected to print 5 lucky numbers
+import random
+
+def print_lucky_numbers(n):
+lst = []
+for i in range(n - 1, -1):
+lst.append(random.randint(1, 100))
+return len(lst)
+
+num = print_lucky_numbers(5)
+if num == 5:
+print("Success")
+`;
+
+let java_code = `// Debugging Problem: Fix the compilation error
+// Expected to print 5 lucky numbers
+import java.util.Random;
+
+public class Main {
+    public static void printLuckyNumbers(int n) {
+        Random rand = new Random();
+        for (int i = 1; i < n; i--) {
+            System.out.println("Lucky Number: " + rand.nextInt(100));
+        }
+    }
+
+    public static void main(String[] args) {
+        printLuckyNumbers(5);
+    }
+}`;
+let cpp_code = `// Debugging Problem: Fix the segmentation fault
+// Expected to print 5 lucky numbers
+#include <iostream>
+#include <cstdlib>
+
+void printLuckyNumbers(int n) {
+    for (int i = 0; i < n; i--) {
+        std::cout << "Lucky Number: " << rand() % 100 << std::endl;
+    }
+}
+
+int main() {
+    printLuckyNumbers(5);
+    return 0;
+}`;
+
+let c_code = `// Debugging Problem: Fix the logical error
+// Expected to print 5 lucky numbers
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_lucky_numbers(int n) {
+    for (int i = 0; i < n; i--){
+        printf("Lucky Number: %d\n", rand() % 100);
+    }
+}
+
+int main() {
+    print_lucky_numbers(5);
+    return 0;
+}
+    
+}`;
+{% endblock %}
+
+{% block redirection %}
+document.getElementById("next-btn").addEventListener("click", () => {
+    window.location.href = "{% url 'question' level=1 question=2 %}"; // Change this to the actual next page URL
+});
+{% endblock %}
+
+{% block result_check %}
+    let ans = result.stdout || result.stderr || "No output";
+    if (ans.trim() === "5") {
+        document.getElementById("output").textContent = "----.   (Note this morse code for further use)";
+    }
+    else {
+        document.getElementById("output").textContent = ans;
+    }
+{% endblock %}

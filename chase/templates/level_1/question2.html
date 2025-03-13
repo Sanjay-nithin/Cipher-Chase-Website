@@ -1,0 +1,7 @@
+{% extends 'level_1/level1base.html' %}
+
+{% block redirection %}
+document.getElementById("next-btn").addEventListener("click", () => {
+    window.location.href = "{% url 'question' level=1 question=3 %}"; // Change this to the actual next page URL
+});
+{% endblock %}

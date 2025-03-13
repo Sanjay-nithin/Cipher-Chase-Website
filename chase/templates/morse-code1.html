@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mascot Transition</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("image/digital-art-old-map-with-terrain-locations\ \(1\).jpg") no-repeat center center/cover;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Mascot container - Bottom Left */
+        .mascot-container {
+            position: absolute;
+            bottom: 0%;
+            left: 5%;
+            max-width: 30%; /* Prevents overflow */
+        }
+
+        .mascot {
+            width: 100%;  /* Makes it responsive within the container */
+            height: auto;
+            display: none;  /* Initially hidden */
+        }
+
+        .next-btn {
+            position: absolute;
+            right: 25%;
+            top: 26%;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(4);
+            transition: opacity 4s ease-in-out, transform 4s ease-in-out;
+        }
+
+        .next-btn.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+     
+    </style>
+</head>
+<body>
+
+    <!-- Mascot container -->
+    <div class="mascot-container">
+        <img id="mascot1" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-16.png">
+        <img id="mascot2" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-17.png">
+        
+    </div>
+
+    <!-- Next Button -->
+    <img id="nextButton" class="next-btn" src="image/start img.png" onclick="nextPage()">
+
+    <script>
+        let mascots = document.querySelectorAll('.mascot');
+        let nextButton = document.getElementById('nextButton');
+        let currentMascot = 0;
+
+        function showNextMascot() {
+            if (currentMascot > 0) {
+                mascots[currentMascot - 1].style.display = "none"; // Hide previous mascot
+            }
+
+            if (currentMascot < mascots.length) {
+                mascots[currentMascot].style.display = "block"; // Show current mascot
+                currentMascot++;
+            } else {
+                // When last mascot disappears, show the button with transition
+                nextButton.classList.add("show");
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                showNextMascot();
+            }
+        });
+
+        function nextPage() {
+            window.location.href = "level1.html"; // Redirect to next page
+        }
+
+        // Show first mascot on load
+        window.onload = function () {
+            mascots[0].style.display = "block";
+        };
+    </script>
+
+</body>
+</html>
