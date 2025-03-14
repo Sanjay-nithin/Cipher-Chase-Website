@@ -1,7 +1,76 @@
 {% extends 'level_1/level1base.html' %}
 
+{% block questions %}
+let python_code = `# Debugging Problem: The Corrupted Sensor
+# The pollution sensor should reset negative values, but it fails!
+
+def measure_pollution(levels):
+    for i in range(len(levels)):
+        if levels[i] < 0:
+            levels[i] == 0  # Bug: Using '==' instead of '='
+    return levels
+
+print(measure_pollution([30, -5, 40, -10, 20]))
+`;
+
+let java_code = `// Debugging Problem: The Corrupted Sensor
+// The pollution sensor should reset negative values, but it fails!
+
+class PollutionSensor {
+    public static int[] measurePollution(int[] levels) {
+        for (int i = 0; i < levels.length; i++) {
+            if (levels[i] < 0) {
+                levels[i] == 0; // Bug: Wrong assignment
+            }
+        }
+        return levels;
+    }
+}
+`;
+
+let cpp_code = `// Debugging Problem: The Corrupted Sensor
+// The pollution sensor should reset negative values, but it fails!
+
+#include <iostream>
+using namespace std;
+
+void measurePollution(int levels[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (levels[i] < 0) {
+            levels[i] == 0; // Bug: Wrong assignment
+        }
+    }
+}
+`;
+
+let c_code = `// Debugging Problem: The Corrupted Sensor
+// The pollution sensor should reset negative values, but it fails!
+
+#include <stdio.h>
+
+void measurePollution(int levels[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (levels[i] < 0) {
+            levels[i] == 0; // Bug: Wrong assignment
+        }
+    }
+}
+`;
+
+{% endblock %}
+
 {% block redirection %}
 document.getElementById("next-btn").addEventListener("click", () => {
-    window.location.href = "{% url 'question' level=1 question=3 %}"; // Change this to the actual next page URL
+    window.location.href = "{% url 'question' level=1 question=3 %}"; 
 });
+{% endblock %}
+
+{% block result_check %}
+    let ans = result.stdout || result.stderr || "No output";
+    if (ans.trim() === "[30, 0, 40, 0, 20]") {
+        document.getElementById("output").textContent = "..-. (Note this Morse code for further use)";
+    }
+    else {
+        document.getElementById("output").textContent = ans;
+    }
 {% endblock %}

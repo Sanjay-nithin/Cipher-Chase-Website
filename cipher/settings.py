@@ -77,13 +77,8 @@ WSGI_APPLICATION = 'cipher.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cipher_chase_db',
-        'USER': 'admin_user',
-        'PASSWORD': 'Possimposs@69',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',}
 }
 
 
@@ -123,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "cipher", "static"),  # Project-level static files
+    os.path.join(BASE_DIR, "cipher","static"),  # Project-level static files
 ]
 
 JUDGE0_URL = os.getenv("JUDGE0_URL", "http://localhost:2358")

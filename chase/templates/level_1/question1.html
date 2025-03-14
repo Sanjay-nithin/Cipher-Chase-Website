@@ -1,70 +1,92 @@
 {% extends 'level_1/level1base.html' %}
 
 {% block questions %}
-let python_code = `# Debugging Problem: Fix the syntax errors
-# Expected to print 5 lucky numbers
-import random
+let python_code = `# Debugging Problem: The Broken Purifier
+# The purifier should remove all 'toxin' elements, but some remain!
 
-def print_lucky_numbers(n):
-lst = []
-for i in range(n - 1, -1):
-lst.append(random.randint(1, 100))
-return len(lst)
+def purify_water(chemicals):
+    for item in chemicals:
+        if item == "toxin":
+            chemicals.remove(item)  # Bug: Removing while iterating
+    return chemicals
 
-num = print_lucky_numbers(5)
-if num == 5:
-print("Success")
+water_sample = ["water", "toxin", "water", "toxin", "toxin", "water"]
+print(purify_water(water_sample))
 `;
 
-let java_code = `// Debugging Problem: Fix the compilation error
-// Expected to print 5 lucky numbers
-import java.util.Random;
+let java_code = `// Debugging Problem: The Broken Purifier
+// The purifier should remove all 'toxin' elements, but some remain!
 
-public class Main {
-    public static void printLuckyNumbers(int n) {
-        Random rand = new Random();
-        for (int i = 1; i < n; i--) {
-            System.out.println("Lucky Number: " + rand.nextInt(100));
+import java.util.*;
+
+class WaterPurifier {
+    public static List<String> purifyWater(List<String> chemicals) {
+        for (String item : chemicals) {
+            if (item.equals("toxin")) {
+                chemicals.remove(item); // Bug: Modifying while iterating
+            }
         }
+        return chemicals;
     }
 
     public static void main(String[] args) {
-        printLuckyNumbers(5);
+        List<String> waterSample = new ArrayList<>(Arrays.asList("water", "toxin", "water", "toxin", "toxin", "water"));
+        System.out.println(purifyWater(waterSample));
     }
-}`;
-let cpp_code = `// Debugging Problem: Fix the segmentation fault
-// Expected to print 5 lucky numbers
+}
+`;
+
+let cpp_code = `// Debugging Problem: The Broken Purifier
+// The purifier should remove all 'toxin' elements, but some remain!
+
 #include <iostream>
-#include <cstdlib>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-void printLuckyNumbers(int n) {
-    for (int i = 0; i < n; i--) {
-        std::cout << "Lucky Number: " << rand() % 100 << std::endl;
+void purifyWater(vector<string>& chemicals) {
+    for (string item : chemicals) {
+        if (item == "toxin") {
+            chemicals.erase(find(chemicals.begin(), chemicals.end(), item)); // Bug: Removing while iterating
+        }
     }
 }
 
 int main() {
-    printLuckyNumbers(5);
-    return 0;
-}`;
+    vector<string> waterSample = {"water", "toxin", "water", "toxin", "toxin", "water"};
+    purifyWater(waterSample);
 
-let c_code = `// Debugging Problem: Fix the logical error
-// Expected to print 5 lucky numbers
+    for (string item : waterSample) {
+        cout << item << " ";
+    }
+}
+`;
+
+let c_code = `// Debugging Problem: The Broken Purifier
+// The purifier should remove all 'toxin' elements, but some remain!
+
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-void print_lucky_numbers(int n) {
-    for (int i = 0; i < n; i--){
-        printf("Lucky Number: %d\n", rand() % 100);
+void purifyWater(char chemicals[][10], int size) {
+    for (int i = 0; i < size; i++) {
+        if (strcmp(chemicals[i], "toxin") == 0) {
+            chemicals[i][0] = '\\0'; // Bug: Doesn't shift remaining elements
+        }
     }
 }
 
 int main() {
-    print_lucky_numbers(5);
-    return 0;
+    char chemicals[5][10] = {"water", "toxin", "water", "toxin", "toxin", "water"};
+    purifyWater(chemicals, 5);
+
+    for (int i = 0; i < 5; i++) {
+        if (chemicals[i][0] != '\\0')
+            printf("%s ", chemicals[i]);
+    }
 }
-    
-}`;
+`;
+
 {% endblock %}
 
 {% block redirection %}
@@ -75,8 +97,8 @@ document.getElementById("next-btn").addEventListener("click", () => {
 
 {% block result_check %}
     let ans = result.stdout || result.stderr || "No output";
-    if (ans.trim() === "5") {
-        document.getElementById("output").textContent = "----.   (Note this morse code for further use)";
+    if (ans.trim() === "water water water") {
+        document.getElementById("output").textContent = ".--. (Note this morse code for further use)";
     }
     else {
         document.getElementById("output").textContent = ans;

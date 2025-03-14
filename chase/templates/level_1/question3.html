@@ -1,2 +1,94 @@
 {% extends 'level_1/level1base.html' %}
 
+{% block questions %}
+let python_code = `# Debugging Problem: The Malfunctioning Control System
+# The purification timer should activate every 10 minutes, but it's unreliable!
+
+def purification_timer(minutes):
+    if minutes % 10 != 0:
+        print("Waiting...")
+    else:
+        print("Releasing Cleansing Agent!")
+
+for t in range(50):
+    purification_timer(t)
+`;
+
+let java_code = `// Debugging Problem: The Malfunctioning Control System
+// The purification timer should activate every 10 minutes, but it's unreliable!
+
+class PurificationTimer {
+    public static void purificationTimer(int minutes) {
+        if (minutes % 10 != 0) {
+            System.out.println("Waiting...");
+        } else {
+            System.out.println("Releasing Cleansing Agent!");
+        }
+    }
+
+    public static void main(String[] args) {
+        for (int t = 0; t < 50; t++) {
+            purificationTimer(t);
+        }
+    }
+}
+`;
+
+let cpp_code = `// Debugging Problem: The Malfunctioning Control System
+// The purification timer should activate every 10 minutes, but it's unreliable!
+
+#include <iostream>
+using namespace std;
+
+void purificationTimer(int minutes) {
+    if (minutes % 10 != 0) {
+        cout << "Waiting..." << endl;
+    } else {
+        cout << "Releasing Cleansing Agent!" << endl;
+    }
+}
+
+int main() {
+    for (int t = 0; t < 50; t++) {
+        purificationTimer(t);
+    }
+}
+`;
+
+let c_code = `// Debugging Problem: The Malfunctioning Control System
+// The purification timer should activate every 10 minutes, but it's unreliable!
+
+#include <stdio.h>
+
+void purificationTimer(int minutes) {
+    if (minutes % 10 != 0) {
+        printf("Waiting...\n");
+    } else {
+        printf("Releasing Cleansing Agent!\n");
+    }
+}
+
+int main() {
+    for (int t = 0; t < 50; t++) {
+        purificationTimer(t);
+    }
+}
+`;
+
+{% endblock %}
+
+{% block redirection %}
+document.getElementById("next-btn").addEventListener("click", () => {
+    window.location.href = "{% url 'question' level=2 question=1 %}"; 
+});
+{% endblock %}
+
+{% block result_check %}
+    let ans = result.stdout || result.stderr || "No output";
+    if (ans.includes("Releasing Cleansing Agent!")) {
+        document.getElementById("output").textContent = "- .... (Note this Morse code for further use)";
+    }
+    else {
+        document.getElementById("output").textContent = ans;
+    }
+{% endblock %}
