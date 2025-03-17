@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: url("image/digital-art-old-map-with-terrain-locations\ \(1\).jpg") no-repeat center center/cover;
+            background: url("{% static 'chase/image/digital-art-old-map-with-terrain-locations.jpg' %}") no-repeat center center/cover;
             height: 100vh;
             overflow: hidden;
             position: relative;
@@ -19,13 +20,13 @@
             position: absolute;
             bottom: 0%;
             left: 5%;
-            max-width: 30%; /* Prevents overflow */
+            max-width: 30%;
         }
 
         .mascot {
-            width: 100%;  /* Makes it responsive within the container */
+            width: 100%;
             height: auto;
-            display: none;  /* Initially hidden */
+            display: none;
         }
 
         .next-btn {
@@ -44,27 +45,38 @@
             opacity: 1;
             transform: scale(1);
         }
-     
     </style>
 </head>
 <body>
 
     <!-- Mascot container -->
     <div class="mascot-container">
-        <img id="mascot1" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-16.png">
-        <img id="mascot2" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-17.png">
-        
+        <img id="mascot1" class="mascot" src="{% static 'chase/image/Level-1_Mascot_(C-11_C-20)/C-16.png' %}">
+        <img id="mascot2" class="mascot" src="{% static 'chase/image/Level-1_Mascot_(C-11_C-20)/C-17.png' %}">
     </div>
 
     <!-- Next Button -->
-    <img id="nextButton" class="next-btn" src="image/start img.png" onclick="nextPage()">
+    <img id="nextButton" class="next-btn" src="{% static 'chase/image/start img.png' %}" onclick="nextPage()">
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="{% static 'chase/audio/level 1 bgm 10 min.mp3' %}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         let mascots = document.querySelectorAll('.mascot');
         let nextButton = document.getElementById('nextButton');
+        let bgMusic = document.getElementById('bgMusic');
         let currentMascot = 0;
+        let musicStarted = false;
 
         function showNextMascot() {
+            if (!musicStarted) {
+                bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
+                musicStarted = true;
+            }
+
             if (currentMascot > 0) {
                 mascots[currentMascot - 1].style.display = "none"; // Hide previous mascot
             }
@@ -73,8 +85,7 @@
                 mascots[currentMascot].style.display = "block"; // Show current mascot
                 currentMascot++;
             } else {
-                // When last mascot disappears, show the button with transition
-                nextButton.classList.add("show");
+                nextButton.classList.add("show"); // Show next button when all mascots are displayed
             }
         }
 
@@ -85,12 +96,11 @@
         });
 
         function nextPage() {
-            window.location.href = "level1.html"; // Redirect to next page
+            window.location.href = "{% url 'open_level' level=2}";
         }
 
-        // Show first mascot on load
         window.onload = function () {
-            mascots[0].style.display = "block";
+            mascots[0].style.display = "block"; // Show first mascot
         };
     </script>
 

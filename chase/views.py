@@ -31,3 +31,6 @@ def track_tab_switch(request):
         print(f"Tab switched {data['count']} times.")
         return JsonResponse({"status": "success"})
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+def open_morse(request, level):
+    return render(request, f"morse-code{level}.html")

@@ -86,6 +86,12 @@
      alt="Next" 
      onclick="window.location.href='{% url 'question' level=1 question=1 %}'">
 
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="{% static 'chase/audio/intro-final.mp3' %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         let currentImage = 1;
         const totalImages = 14;
@@ -93,6 +99,7 @@
         const mascotContainer = document.getElementById('mascotContainer');
         const nextButton = document.getElementById('nextButton');
         const background = document.getElementById('background');
+        const bgMusic = document.getElementById('bgMusic'); // Get the audio element
         let mascotBasePath = "{% static 'chase/image/intro_Mascot_(C-01_C-10)/mascot' %}"
         let lastMascotShown = false;
 
@@ -122,6 +129,8 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar behavior (e.g., scrolling)
+
                 if (lastMascotShown) {
                     mascotContainer.style.opacity = 0; // Hide the last mascot
                     background.style.filter = "none"; // Remove blur effect from background

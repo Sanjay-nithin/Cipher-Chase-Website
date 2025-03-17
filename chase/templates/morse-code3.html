@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: url("image/digital-art-old-map-with-terrain-locations\ \(1\).jpg") no-repeat center center/cover;
+            background: url("{% static 'chase/image/digital-art-old-map-with-terrain-locations.jpg' %}") no-repeat center center/cover;
             height: 100vh;
             overflow: hidden;
             position: relative;
@@ -56,6 +56,12 @@
 
     <!-- Next Button -->
     <img id="nextButton" class="next-btn" src="image/start img.png" onclick="nextPage()">
+
+     <!-- Background Music -->
+     <audio id="bgMusic" loop>
+        <source src="{% static 'chase/audio/level 3 bgm 10 min.mp3' %}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         let mascots = document.querySelectorAll('.mascot');

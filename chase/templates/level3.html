@@ -82,6 +82,12 @@
 
     <img id="nextButton" class="next-btn" src="image/start img.png" alt="Next" onclick="nextPage()">
 
+     <!-- Background Music -->
+     <audio id="bgMusic" loop>
+        <source src="{% static 'chase/audio/intro-final.mp3' %}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         let currentImage = 25;
         const totalImages = 30;

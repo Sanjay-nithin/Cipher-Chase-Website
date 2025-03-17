@@ -97,7 +97,7 @@ document.getElementById("next-btn").addEventListener("click", () => {
 
 {% block result_check %}
     let ans = result.stdout || result.stderr || "No output";
-    if (ans.trim() === "water water water") {
+    if (ans.trim() === "['water', 'water', 'water']") {
         document.getElementById("output").textContent = ".--. (Note this morse code for further use)";
     }
     else {

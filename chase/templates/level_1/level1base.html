@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +60,7 @@
             Next ➡️
         </button>
     </div>
+
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
             mode: "text/x-python",
@@ -165,7 +168,7 @@
         document.getElementById("submit-btn").addEventListener("click", async () => {
             showWarning("Code submitted successfully");
             setTimeout(() => {
-                window.location.href = `{% url 'open_level' level=2 %}`;
+                window.location.href = `{% url 'decrypt' level=1 %}`;
             }, 2000); // Redirect after 2 seconds
         });
         

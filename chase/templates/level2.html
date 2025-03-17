@@ -83,6 +83,12 @@
 
     <img id="nextButton" class="next-btn" src="{% static 'chase/image/start img.png' %}" alt="Next" onclick="nextPage()">
 
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="{% static 'chase/audio/intro-final.mp3' %}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         let currentImage = 18;
         const totalImages = 23;
@@ -91,6 +97,14 @@
         const nextButton = document.getElementById('nextButton');
         const background = document.getElementById('background');
         let lastMascotShown = false;
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Ensure the music plays when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            bgMusic.play().catch(() => {
+                console.log("Autoplay failed. User interaction needed.");
+            });
+        });
 
         function showNextImage() {
             if (currentImage <= totalImages) {
@@ -119,6 +133,7 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
+                event.preventDefault(); // Prevent spacebar from pausing the audio
                 if (lastMascotShown) {
                     mascotContainer.style.opacity = 0; // Hide the last mascot
                     background.style.filter = "none"; // Remove blur effect from background
